@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173", // React frontend
+    origin: "https://portfolio-nine-omega-rm6waj0uyt.vercel.app/", // React frontend
     methods: ["GET", "POST"],
   })
 );
