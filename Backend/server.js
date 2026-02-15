@@ -6,22 +6,29 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-const cors = require("cors");
+/* ================= CORS ================= */
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://portfolio-nine-omega-rm6waj0uyt.vercel.app"
+];
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://portfolio-nine-omega-rm6waj0uyt.vercel.app"
-  ],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST"],
   credentials: true
 }));
 
-
 app.use(express.json());
 
-// Create transporter
+/* ================= MAIL ================= */
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -30,8 +37,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Verify transporter connection
-transporter.verify((error, success) => {
+transporter.verify((error) => {
   if (error) {
     console.error("❌ Email Config Error:", error);
   } else {
@@ -39,7 +45,8 @@ transporter.verify((error, success) => {
   }
 });
 
-// Route
+/* ================= ROUTE ================= */
+
 app.post("/api/contact", async (req, res) => {
   const { name, email, subject, message } = req.body;
 
@@ -51,7 +58,7 @@ app.post("/api/contact", async (req, res) => {
   }
 
   try {
-    const mailOptions = {
+    await transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
       replyTo: email,
@@ -63,15 +70,13 @@ Email: ${email}
 Message:
 ${message}
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
-
-    console.log("✅ Email Sent");
     res.status(200).json({
       success: true,
       message: "Email sent successfully!",
     });
+
   } catch (error) {
     console.error("❌ Mail Error:", error);
     res.status(500).json({
@@ -81,6 +86,8 @@ ${message}
   }
 });
 
+/* ================= START ================= */
+
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
