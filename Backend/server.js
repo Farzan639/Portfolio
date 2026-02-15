@@ -7,12 +7,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(
-  cors({
-    origin: "https://portfolio-nine-omega-rm6waj0uyt.vercel.app/", // React frontend
-    methods: ["GET", "POST"],
-  })
-);
+const cors = require("cors");
+
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://portfolio-nine-omega-rm6waj0uyt.vercel.app"
+  ],
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
 
 app.use(express.json());
 
