@@ -31,7 +31,7 @@ export default function SkillsSection() {
     { name: "Python", icon: <Terminal size={18} /> },
     { name: "Git & GitHub", icon: <Code2 size={18} /> },
     { name: "Responsive Design", icon: <Layout size={18} /> },
-    { name: "Next.js", icon: <Cpu size={18} /> },
+    
   ];
 
   return (

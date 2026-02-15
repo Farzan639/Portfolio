@@ -5,7 +5,7 @@ import { Zap, Layers, Code2 } from "lucide-react";
 
 export default function About() {
   const statsData = [
-    { label: "Status", value: "Fresher", icon: <Zap size={20} /> },
+    
     { label: "Projects", value: "4+", icon: <Layers size={20} /> },
     { label: "Skills", value: "6+", icon: <Code2 size={20} /> },
   ];

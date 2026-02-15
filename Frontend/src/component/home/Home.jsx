@@ -132,7 +132,7 @@ export default function Home() {
       <main className="relative z-10 px-4 lg:px-12 py-24 max-w-[1400px] mx-auto space-y-32">
         
         <section id="home" ref={sectionRefs.home} className="section-style">
-          <MainPage />
+         <MainPage scrollToSection={scrollToSection} />
         </section>
 
         <section id="about" ref={sectionRefs.about} className="section-style">
