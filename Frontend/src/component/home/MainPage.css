@@ -1,0 +1,19 @@
+/* Sharp Breathing Glow */
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(1.05); }
+}
+
+.animate-pulseSoft {
+  animation: pulseSoft 10s ease-in-out infinite;
+}
+
+/* Subtle grayscale to color transition */
+.grayscale-hover {
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+}
+
+.grayscale-hover:hover {
+  filter: grayscale(0%);
+}
